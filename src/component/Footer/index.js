@@ -1,29 +1,40 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-import Shoes from '../Shoes';
+import Pants from '../Pants';
 
 export default function Footer() {
  return (
    <View>
-       <Text style={styles.title}>VOCÊ TAMBEM PODE GOSTAR</Text>
+       <Text style={styles.title}>VOCÊ TAMBÉM PODE GOSTAR</Text>
+
        <View style={{flexDirection: 'row'}}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            
             <View style={{marginHorizontal: 10}}>
-                <Shoes img={require('../../assets/1.png')} cost="110,90">
-                    Nike Air Max Dia   
-                </Shoes>
+                <Pants 
+                  image={require('../../assets/1.png')} 
+                  price="R$ 110,90"
+                  name="Calça Jeans Slim"
+                />
             </View>
+
             <View style={{marginHorizontal: 10}}>
-                <Shoes img={require('../../assets/5.png')} cost="360,90">
-                    Nike Epic React Flyknit 2 
-                </Shoes>
+                <Pants 
+                  image={require('../../assets/5.png')} 
+                  price="R$ 160,90"
+                  name="Calça Moletom Confort"
+                />
             </View>
+
             <View style={{marginHorizontal: 10}}>
-                <Shoes img={require('../../assets/3.png')} cost="890">
-                    Nike Squidward Tentacles   
-                </Shoes>
+                <Pants 
+                  image={require('../../assets/3.png')} 
+                  price="R$ 189,90"
+                  name="Calça Cargo Street"
+                />
             </View>
+
         </ScrollView> 
        </View>
    </View>
@@ -37,4 +48,4 @@ const styles = StyleSheet.create({
         marginVertical: '2%',
         paddingHorizontal: '2%',
     }
-})
+});
