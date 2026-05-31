@@ -1,73 +1,129 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Pants(props) {
 
- function filterDesc(desc){
-    if(!desc) return '';
+function filterDesc(desc){
+  if(!desc) return '';
 
-    if(desc.length < 27){
-        return desc;
+  if(desc.length < 27){
+    return desc;
+  }
+
+  return `${desc.substring(0, 23)}...`;
+}
+
+return (
+<View
+  style={[
+    styles.container,
+    props.isSelected && {
+      borderWidth: 2,
+      borderColor: 'green',
+      borderRadius: 10,
+      backgroundColor: '#eaffea'
     }
+  ]}
+>
 
-    return `${desc.substring(0, 23)}...`;
- }
+{/* CHECKBOX */}
+{props.showCheckbox && (
+  <TouchableOpacity 
+    style={styles.checkboxContainer}
+    onPress={props.onSelect}
+  >
+    <Checkbox
+      value={props.isSelected}
+      pointerEvents="none"
+    />
+  </TouchableOpacity>
+)}
 
- return (
-  <View
-    style={[
-      styles.container,
-      props.isSelected && {
-        borderWidth: 2,
-        borderColor: 'green',
-        borderRadius: 10,
-        backgroundColor: '#eaffea'
-      }
-    ]}
+
+{/* MENU ADMIN */}
+{props.showActions && (
+  <TouchableOpacity
+    style={styles.menuContainer}
+    onPress={props.onMenuPress}
   >
 
-    {/* CHECKBOX */}
-    <TouchableOpacity 
-      style={styles.checkboxContainer}
-      onPress={props.onSelect}
-      activeOpacity={0.7}
+    <MaterialIcons
+      name="more-vert"
+      size={24}
+      color="#000"
+    />
+
+  </TouchableOpacity>
+)}
+
+{/* FAVORITOS */}
+{props.showWishlist && (
+  <TouchableOpacity
+    style={styles.favoriteContainer}
+    onPress={props.onWishlist}
+  >
+
+    <MaterialIcons
+      name={
+        props.isFavorite
+          ? "favorite"
+          : "favorite-border"
+      }
+      size={24}
+      color={
+        props.isFavorite
+          ? "red"
+          : "#000"
+      }
+    />
+
+  </TouchableOpacity>
+)}
+
+  {/* CARD */}
+  <TouchableOpacity onPress={props.onClick} activeOpacity={0.8}>
+    
+    <Image
+      source={
+        props.image
+          ? (typeof props.image === 'string'
+              ? { uri: props.image }
+              : props.image)
+          : require('../../assets/1.png')
+      }
+      style={styles.pantsImg}
+    />
+
+    <Text
+      style={styles.pantsText}
+      numberOfLines={1}
+      ellipsizeMode="tail"
     >
-      <Checkbox 
-        value={props.isSelected}
-        pointerEvents="none"
-      />
-    </TouchableOpacity>
+      {filterDesc(props.name)}
+    </Text>
 
-    {/* CARD */}
-    <TouchableOpacity onPress={props.onClick} activeOpacity={0.8}>
-      <Image
-  source={
-    props.image
-      ? (typeof props.image === 'string'
-          ? { uri: props.image }
-          : props.image)
-      : require('../../assets/1.png') // 👈 imagem padrão
-  }
-  style={styles.pantsImg}
-/>
-
-      <Text style={styles.pantsText}>
-        {filterDesc(props.name)}
+    <View style={{ opacity: 0.6 }}>
+      <Text
+        style={styles.pantsText}
+        numberOfLines={1}
+      >
+        {props.price}
       </Text>
+    </View>
 
-      <View style={{ opacity: 0.6 }}>
-        <Text style={styles.pantsText}>{props.price}</Text>
-      </View>
-    </TouchableOpacity>
+  </TouchableOpacity>
 
-  </View>
- );
+</View>
+);
 }
 
 const styles = StyleSheet.create({
-  container:{
-    paddingVertical: '2%',
+    container:{
+    width: 180,
+    paddingTop: 15,
+    paddingBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative'
@@ -79,13 +135,30 @@ const styles = StyleSheet.create({
   },
 
   pantsText:{
-    fontSize: 16
+    fontSize: 16,
+    width: 175,
+    textAlign: 'center'
   },
 
   checkboxContainer:{
     position: 'absolute',
-    top: 10,
+    top: 18,
     left: 10,
     zIndex: 10
+  },
+
+  favoriteContainer:{
+  position: 'absolute',
+  top: 18,
+  right: 10,
+  zIndex: 10
+},
+
+  menuContainer:{
+    position: 'absolute',
+    top: 18,
+    right: 10,
+    zIndex: 10
   }
+
 });

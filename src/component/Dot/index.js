@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
         marginHorizontal: '2.5%',
         elevation: 5,
     }
-});
+})
