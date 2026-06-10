@@ -174,6 +174,7 @@ npx expo start
 Iniciar o servidor de upload:
 
 ```bash
+cd backend
 node server.js
 ```
 
